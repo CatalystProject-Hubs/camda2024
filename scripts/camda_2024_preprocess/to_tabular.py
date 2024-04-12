@@ -93,15 +93,4 @@ df = df.with_columns(
 # Remove null ages
 df = df.filter(pl.col("age").is_not_null())
 
-# melt 1111 and 2222 columns into sex column
-logger.info("Determining sex column")
-
-df = df.with_columns(
-   sex = pl\
-    .when((df['1111'] == "T") & (df['2222'] == "T")).then(pl.lit("?"))\
-    .when(df['1111'] == "T").then(pl.lit("M"))\
-    .when(df['2222'] == "T").then(pl.lit("F"))\
-    .otherwise(pl.lit("?"))
-)
-
 pass
