@@ -93,4 +93,25 @@ df = df.with_columns(
 # Remove null ages
 df = df.filter(pl.col("age").is_not_null())
 
+# Retrieve the visit's conditions ===========================================
+df = df.with_columns(
+  pl.col("data")\
+    .str.split(",")
+).explode("data")
+
+# remove rows where data is empty
+df = df.filter(pl.col("data") != "")
+
+# Add values
+df = df.with_columns(
+  pl.lit("Y").alias("value")
+)
+
+# pivot the data
+df = df.pivot(
+  "value",
+  ["p_id","v_o_id","sex","age"],
+  "data"
+)
+
 pass
