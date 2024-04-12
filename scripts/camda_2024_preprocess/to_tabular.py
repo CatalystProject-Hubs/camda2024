@@ -75,6 +75,24 @@ df = df.with_columns(
   pl.col("data").str.replace("1111|2222","")
 ).drop(["is_male","is_female"])
 
+# Retrieve the visit's age ==================================================
+# Retrieve the codes 9xxx
+logger.info("Determining the visit's age")
+df = df.with_columns(
+  pl.col("data")\
+    .str.extract("9([01]\\d{2})")\
+    .cast(pl.Int32)\
+    .alias("age")
+)
+
+# Remove processed ages
+df = df.with_columns(
+  pl.col("data").str.replace("9[01]\\d{2}","")
+)
+
+# Remove null ages
+df = df.filter(pl.col("age").is_not_null())
+
 # melt 1111 and 2222 columns into sex column
 logger.info("Determining sex column")
 
