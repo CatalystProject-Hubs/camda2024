@@ -17,14 +17,14 @@ with open( file, "r") as f:
     data = json.load(f)
 
 # Create patient_id and visit_occurrence_id columns
-logger.info("Creating patient_id and visit_occurrence_id columns")
+logger.info("Splitting data into visits")
+in_time = time.time()
 data = [{
     "p_id": k,
     "v_o_id": f"{k}_{idx}",
-    **{
-    k: "T" for k in set(vv)
-    }}
+    "data": ",".join(vv)}
     for k, v in data.items() for idx, vv in enumerate(v)]
+logger.info(f"Columns created in {time.time() - in_time:.3f} seconds")
 
 # Crop the data
 if True:
