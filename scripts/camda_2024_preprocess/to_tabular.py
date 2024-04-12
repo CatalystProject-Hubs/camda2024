@@ -3,6 +3,7 @@ import polars as pl
 import pandas as pd
 import pyspark as ps
 import time
+import os
 
 # Prepare the loggers
 import logging
@@ -27,7 +28,7 @@ data = [{
 logger.info(f"Columns created in {time.time() - in_time:.3f} seconds")
 
 # Crop the data
-if True:
+if False:
   regs = int(1e2)
   logger.info(f"Cropping the data to {regs} rows from {len(data)} initial rows")
   data = data[:regs]
@@ -94,6 +95,7 @@ df = df.with_columns(
 df = df.filter(pl.col("age").is_not_null())
 
 # Retrieve the visit's conditions ===========================================
+logger.info("Retrieving the visit's conditions")
 df = df.with_columns(
   pl.col("data")\
     .str.split(",")
@@ -109,9 +111,9 @@ df = df.with_columns(
 
 # pivot the data
 df = df.pivot(
-  "value",
-  ["p_id","v_o_id","sex","age"],
-  "data"
+  values="value",
+  index=["p_id","v_o_id","sex","age"],
+  columns="data"
 )
 
 # Final logs ===============================================================
