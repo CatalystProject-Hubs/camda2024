@@ -38,12 +38,42 @@ in_time = time.time()
 df = pl.DataFrame(data)
 logger.info(f"DataFrame created in {time.time() - in_time:.3f} seconds")
 
-# Propagate 1111 and 2222 columns by person if
-logger.info("Propagating 1111 and 2222 columns by person")
-df = df.with_columns({
-    "1111": pl.first("1111"),
-    "2222": pl.first("2222")
-})
+# Determine the person's sex ================================================
+# Retrieve the codes 1111 and 2222
+logger.info("Determining the person's sex")
+df = df.with_columns([
+  pl.col("data")\
+    .str.contains(code)\
+    .alias(col)
+  for code,col in {
+    "1111": "is_male",
+    "2222": "is_female"
+  }.items()
+])
+
+# Propagate the values to the whole person
+df = df.with_columns([
+  pl.col(col)\
+    .any()\
+    .over("p_id")\
+    .alias(col)
+  for col in ["is_male","is_female"]
+])
+
+# Clean the sex column
+df = df.with_columns(
+  pl.when(df["is_male"] & ~df["is_female"])\
+    .then(pl.lit("M"))\
+    .when(df["is_female"] & ~df["is_male"])\
+    .then(pl.lit("F"))\
+    .otherwise(pl.lit(None))\
+    .alias("sex")
+)
+
+# remove processed columns and drop unnecessary columns
+df = df.with_columns(
+  pl.col("data").str.replace("1111|2222","")
+).drop(["is_male","is_female"])
 
 # melt 1111 and 2222 columns into sex column
 logger.info("Determining sex column")
