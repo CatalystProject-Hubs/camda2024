@@ -114,4 +114,9 @@ df = df.pivot(
   "data"
 )
 
+# Final logs ===============================================================
+logger.info("Saving the DataFrame")
+os.makedirs("preprocessed_data", exist_ok=True)
+df.write_csv("preprocessed_data/eHRs-gen2.csv")
+logger.info("DataFrame saved")
 pass
