@@ -1,0 +1,84 @@
+CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
+101,VIH,HIV,B20
+201,Cáncer de cabeza y cuello,Head and neck cancer,C14
+202,Cáncer de estómago,Stomach cancer,C16
+203,Cáncer colorrectal,Colorectal cancer,C18-C20
+204,Cáncer de hígado y vías biliares,Liver and Bile Duct Cancer,C22
+205,Cáncer de páncreas,Pancreatic cancer,C25
+206,Cáncer de bronquio y pulmón,Lung and Bronchus Cancer,C34
+207,Cáncer de tiroides,Thyroid cancer,C73
+208,Cáncer de hueso y tejidos blandos,Bone and soft tissue sarcomas,C40-C41
+209,Melanoma de piel,Melanoma,C43
+210,Cáncer de mama,Breast cancer,C50
+211,Cáncer de útero,Uterine cancer,C55
+212,Cáncer de cuello uterino,Cervical cancer,C53
+213,Cáncer de ovario,Ovarian cancer,C56
+214,Cáncer de próstata,Prostate cancer,C61
+215,Cáncer de testículo,Testicular cancer,C62
+216,Cáncer de riñón y pelvis renal,Kidney and renal pelvis cancer,C64-C65
+217,Cáncer de vejiga,Bladder cancer,C67
+218,Enfermedad de Hodgkin,Hodgkin’s disease,C81
+219,Linfoma no Hodgkin,Non-Hodgkin's lymphoma,C82-C85
+220,Leucemia,Leukemia,C91-C95
+221,Cáncer inmunoproliferativo,Immunoproliferative neoplasm,C88
+222,Sarcoma de Kaposi,Kaposi's sarcoma,C46
+401,Diabetes,Diabetes,E10-E14
+402,Dislipemia,Hyperlipidaemia,E78
+403,Hipotiroidismo,Hypothyroidism,E03
+404,Obesidad,Obesity,E66
+500,Demencia,Dementia,F01-F03
+501,Otro trastorno mental orgánico,Other organic mental disorder,F09
+502,Dependencia alcohol,Alcohol dependence,F10
+503,Dependencia tabaco,Tobacco dependence,F17
+504,Dependencia otras sustancias,Other substance dependece,"F11-F16, F18-F19"
+505,Trastorno esquizofrénico,Schizophrenia,F20
+506,Trastorno estado animo,Mood disorder,F30-F39
+507,Trastorno de ansiedad,Anxiety disorder,F40-F41
+508,Trastorno conducta alimentaria,Eating disorder,F50
+509,Otro trastorno funcional,Other functional disorder,F48
+510,Trastorno personalidad y comportamiento adulto,Disorders of adult personality and behaviour,F60-F69
+511,Discapacidad intelectual,Intellectual disability,F70-F79
+512,Trastorno del espectro autista,Autism,F84
+513,Otro trastorno del desarrollo,Other developmental disorder,"F83, F88-F89"
+514,Trastorno inicio infancia adolescencia,Behavioural and emotional disorders with onset usually occurring in childhood and adolescence,F90-F98
+601,Epilepsia,Epilepsy,G40-G41
+602,Enfermedad de Parkinson,Parkinson disease,G20
+603,Síndrome extrapiramidal,Extrapyramidal disorder,G25
+604,Enfermedad neurológica con déficit motor no ACV,Motor disorders with no CVA,G80-G83
+701,Degeneración macular asociada a la edad,Age-related macular degeneration,H35.3
+702,Glaucoma,Glaucoma,H40-H42
+703,Retinopatía,Retinopathy,H35
+901,Enfermedad cerebrovascular aguda,Acute cerebrovascular disease,I60-I64
+902,Enfermedad cerebrovascular mal definida y otra,Ill-defined cerebrovascular disease and others,I67-I69
+903,Isquemia cerebral transitoria,Transient ischemic attack,G45
+904,Oclusión o estenosis arterias precerebrales,Occlusion or stenosis of precerebral arteries,I65
+905,Secuela enfermedad cerebrovascular,Sequelae of cerebrovascular diseases,I69
+906,Arteriopatía de extremidades,Extremity arteriopathy diseases,I70
+907,Arteriopatía intraabdominal,Intra-abdominal artery disease,I74
+908,Aneurisma arterias aorta periféricas y viscerales,Peripheral and visceral artery aneurysms,I71
+909,Fibrilación auricular,Atrial fibrillation,I48
+910,Cardiopatía isquémica,Ischemic heart disease,I20-I25
+911,Enfermedad valvular adquirida,Acquired heart diseases,I34-I38
+912,Anomalía congénita cardíaca y circulatoria,Congenital cardiovascular anomalies,Q20-Q28
+913,Hipertensión,Hypertension,I10-I15
+914,Insuficiencia cardiaca,Heart failure,I50
+1001,EPOC,COPD,J44
+1002,Asma,Asthma,J45
+1101,Hepatopatía crónica excepto cirrosis,Ischemic hepatitis except for cirrhosis,K73
+1102,Esteatosis hepática,Hepatic steatosis,K76.0
+1103,Cirrosis hepática,Hepatic cirrhosis,K74
+1104,Enfermedad por reflujo gastroesofágico,Gastroesophageal reflux disease,K21
+1105,Enteritis regional y colitis ulcerosa,Regional enteritis and ulcerative colitis,K50-K51
+1106,Síndrome de malabsorción e intolerancia alimenticia,Malabsorption and food intolerance,
+1201,Psoriasis,Psoriasis,L40
+1202,Dermatitis atópica,Dermatitis,L20
+1301,Osteoporosis,Osteoporosis,M81
+1302,Artrosis/espondilosis,Arthrosis/spondylosis,M15-M19
+1303,Gota y otras artropatías por cristales,Gout and other crystal deposition diseases,M10
+1304,Otra artropatía,Other arthropathies,M13
+1305,Artritis reumatoide y enfermedades relacionadas,Rheumatoid arthritis and related diseases,M05-M06
+1306,Enfermedad del colágeno y vasculitis,Collagen diseases and vasculitis,M30-M31
+1307,Fibromialgia,Fibromyalgia,M79.7
+1401,Insuficiencia renal crónica,Chronic kidney disease,N18
+1402,Litiasis urinaria,Urinary lithiasis,N20
+1999,Amputacion,Amputation,Z89

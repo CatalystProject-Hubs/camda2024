@@ -1,1 +1,3 @@
 *.csv
+
+!gen2_CIE10.csv
