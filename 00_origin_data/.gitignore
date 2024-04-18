@@ -1,2 +1,6 @@
+# File to exclude from the git repository
 unzipped/*
 zipped/*
+
+# Override to include the files
+!zipped/README.md
