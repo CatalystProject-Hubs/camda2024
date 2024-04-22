@@ -3,6 +3,7 @@ filenames := eHRs-gen2 diabetes-dualaae-ehr-camda
 	touch 00_origin_data/unzipped/.success
 
 00_origin_data/unzipped/%/.success: 00_origin_data/zipped/%.zip
+	[ -d 00_origin_data/unzipped ] || mkdir -p 00_origin_data/unzipped
 	unzip -d 00_origin_data/unzipped/$* $<
 	touch 00_origin_data/unzipped/$*/.success
 
