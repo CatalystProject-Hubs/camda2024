@@ -1,3 +1,10 @@
+# starts the preprocessing pipeline
+pre_src := $(wildcard scripts/camda_2024_preprocess/*.py)
+pre_dta := $(wildcard preprocessed_data/*.csv)
+preprocessed_data/.success: .venv/.success 00_origin_data/unzipped/.success $(pre_src) $(pre_dta)
+	. .venv/bin/activate && python scripts/camda_2024_preprocess/to_tabular-dany.py
+	touch preprocessed_data/.success
+
 # virtual environment
 .venv/.success:
 	python3.10 -m venv .venv
