@@ -1,3 +1,11 @@
+# virtual environment
+.venv/.success:
+	python3.10 -m venv .venv
+	. .venv/bin/activate && pip install --upgrade pip
+	. .venv/bin/activate && pip install -r requirements.txt
+	touch .venv/.success
+
+# uncompressed data files
 filenames := eHRs-gen2 diabetes-dualaae-ehr-camda
 00_origin_data/unzipped/.success: $(addprefix 00_origin_data/unzipped/, $(addsuffix /.success, $(filenames)))
 	touch 00_origin_data/unzipped/.success
