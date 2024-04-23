@@ -37,6 +37,15 @@ in_time = time.time()
 df = pl.DataFrame(data)
 logger.info(f"DataFrame created in {time.time() - in_time:.3f} seconds")
 
+# exploding the data
+df = df.with_columns(
+  pl.col("data")\
+    .str.split(",")
+).explode("data")
+
+# filter empty data
+df = df.filter(pl.col("data") != "")
+
 # Determine the person's sex ================================================
 # Retrieve the codes 1111 and 2222
 logger.info("Determining the person's sex")
@@ -69,10 +78,27 @@ df = df.with_columns(
     .alias("sex")
 )
 
+# Report the number of invalid sex values
+for row in [
+    {"cnd":[1,0], "warn": False, "msg": "No. of male records: "},
+    {"cnd":[0,1], "warn": False, "msg": "No. of female records: "},
+    {"cnd":[1,1], "warn": False, "msg": "Record with both sex values: "},
+    {"cnd":[0,0], "warn": False, "msg": "Record with unknown sex: "}
+  ]:
+  cnd, warn, msg = row.values()
+  # count the number of records
+  f1 = df["is_male"] if cnd[0] == 1 else ~df["is_male"]
+  f2 = df["is_female"] if cnd[1] == 1 else ~df["is_female"]
+  cnt = df.filter(f1 & f2).select("p_id").unique().height
+  # report the number of records
+  if warn:
+    logger.warning(f"{msg}{cnt}")
+  else:
+     print(f"{' '*21}{msg}{cnt}")
+
 # remove processed columns and drop unnecessary columns
-df = df.with_columns(
-  pl.col("data").str.replace("1111|2222","")
-).drop(["is_male","is_female"])
+df = df.filter(~pl.col("data").str.contains("1111|2222"))
+df = df.drop(["is_male","is_female"])
 
 # Retrieve the visit's age ==================================================
 # Retrieve the codes 9xxx
@@ -81,43 +107,38 @@ df = df.with_columns(
   pl.col("data")\
     .str.extract("9([01]\\d{2})")\
     .cast(pl.Int32)\
+    .alias("_age")
+)
+
+# Propagate to the whole visit (keep the first not null value)
+df = df.with_columns(
+  pl.col("_age")\
+    .filter(pl.col("_age").is_not_null())\
+    .first()\
+    .over("v_o_id")\
     .alias("age")
 )
 
+# Report the number of invalid age values
+for row in [
+  {"cnd": pl.col("age") != pl.col("_age"), "msg": "Records with different age values: "},
+  {"cnd": pl.col("age").is_null(), "msg": "Records with unknown age: "}
+]:
+  cnt = df.filter(row["cnd"]).select("p_id").unique().height
+  print(f"{' '*21}{row['msg']}{cnt}")
+
 # Remove processed ages
-df = df.with_columns(
-  pl.col("data").str.replace("9[01]\\d{2}","")
-)
-
-# Retrieve repeated ages
-df = df.with_columns(
-  pl.col("data")\
-    .str.extract("9([01]\\d{2})")\
-    .cast(pl.Int32)\
-    .alias("age_repeat")
-)
-
-# remove rows with age_repeat
-logger.warn(f"rows removed due to a second age defined: {df.filter(pl.col('age_repeat').is_not_null()).height}")
-df = df.filter(pl.col("age_repeat").is_null())
-
-# Remove null ages
-logger.warn(f"rows removed due to null age: {df.filter(pl.col('age').is_null()).height}")
-df = df.filter(pl.col("age").is_not_null())
+df = df\
+  .filter(pl.col("_age").is_null())\
+  .filter(pl.col("age").is_not_null())\
+  .drop("_age")
 
 # Retrieve the visit's conditions ===========================================
 logger.info("Retrieving the visit's conditions")
-df = df.with_columns(
-  pl.col("data")\
-    .str.split(",")
-).explode("data")
-
-# remove rows where data is empty
-df = df.filter(pl.col("data") != "")
 
 # Add values
 df = df.with_columns(
-  pl.lit("Y").alias("value")
+  pl.lit("1").alias("value")
 )
 
 # add CIE10 column
@@ -129,8 +150,13 @@ df = df.with_columns(pl.col("data").cast(pl.Int64))
 df = df.join(cie, on="data", how="left")
 
 # show null CI10 codes
-logger.info("Showing null CIE10 codes")
-print(df.filter(pl.col("CIE10").is_null()))
+logger.info("Showing null CIE10 codes (if any)")
+print(df\
+      .filter(pl.col("CIE10").is_null())\
+      .select(["data","p_id"])\
+      .sort(["data","p_id"])\
+      .unique()
+      )
 
 # replace null CIE10 codes with data
 df = df.with_columns(
