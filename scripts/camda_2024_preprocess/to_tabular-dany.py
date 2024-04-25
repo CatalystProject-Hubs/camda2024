@@ -142,7 +142,7 @@ df = df.with_columns(
 )
 
 # add CIE10 column
-cie = pl.read_csv("preprocessed_data/gen2_CIE10.csv")
+cie = pl.read_csv("00_origin_data/gen2_CIE10.csv")
 cie = cie.select(["CODE_BPS","CIE-10"])
 cie = cie.rename({"CODE_BPS":"data","CIE-10":"CIE10"})
 # cast and join
