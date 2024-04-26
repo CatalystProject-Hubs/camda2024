@@ -30,7 +30,7 @@ CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
 501,Otro trastorno mental orgánico,Other organic mental disorder,F09
 502,Dependencia alcohol,Alcohol dependence,F10
 503,Dependencia tabaco,Tobacco dependence,F17
-504,Dependencia otras sustancias,Other substance dependece,"F11-F16, F18-F19"
+504,Dependencia otras sustancias,Other substance dependece,F19
 505,Trastorno esquizofrénico,Schizophrenia,F20
 506,Trastorno estado animo,Mood disorder,F30-F39
 507,Trastorno de ansiedad,Anxiety disorder,F40-F41
@@ -39,7 +39,7 @@ CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
 510,Trastorno personalidad y comportamiento adulto,Disorders of adult personality and behaviour,F60-F69
 511,Discapacidad intelectual,Intellectual disability,F70-F79
 512,Trastorno del espectro autista,Autism,F84
-513,Otro trastorno del desarrollo,Other developmental disorder,"F83, F88-F89"
+513,Otro trastorno del desarrollo,Other developmental disorder,F89
 514,Trastorno inicio infancia adolescencia,Behavioural and emotional disorders with onset usually occurring in childhood and adolescence,F90-F98
 601,Epilepsia,Epilepsy,G40-G41
 602,Enfermedad de Parkinson,Parkinson disease,G20
@@ -69,7 +69,7 @@ CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
 1103,Cirrosis hepática,Hepatic cirrhosis,K74
 1104,Enfermedad por reflujo gastroesofágico,Gastroesophageal reflux disease,K21
 1105,Enteritis regional y colitis ulcerosa,Regional enteritis and ulcerative colitis,K50-K51
-1106,Síndrome de malabsorción e intolerancia alimenticia,Malabsorption and food intolerance,
+1106,Síndrome de malabsorción e intolerancia alimenticia,Malabsorption and food intolerance,K90.4
 1201,Psoriasis,Psoriasis,L40
 1202,Dermatitis atópica,Dermatitis,L20
 1301,Osteoporosis,Osteoporosis,M81
