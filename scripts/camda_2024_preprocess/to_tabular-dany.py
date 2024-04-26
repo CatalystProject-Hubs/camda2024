@@ -100,6 +100,13 @@ for row in [
 df = df.filter(~pl.col("data").str.contains("1111|2222"))
 df = df.drop(["is_male","is_female"])
 
+# Fill null sex with U
+df = df.with_columns(
+  pl.when(df["sex"].is_null())\
+    .then(pl.lit("U"))\
+    .otherwise(pl.col("sex"))\
+    .alias("sex"))
+
 # Retrieve the visit's age ==================================================
 # Retrieve the codes 9xxx
 logger.info("Determining the visit's age")
@@ -166,7 +173,42 @@ df = df.with_columns(
     .alias("data")
 )
 
+# Impute conditions based on past diagnoses ================================
+# get unique visits
+_df = df\
+  .drop(["data","CIE10","value"])\
+  .unique()\
+  .with_columns([
+    pl.col("v_o_id")\
+      .map_elements(lambda s: int(s.split("_")[1]),return_dtype=pl.Int32)\
+      .alias("_v_o_id")
+  ])
+# get alternative df
+_df2 = _df.rename({
+    "v_o_id": "v_o_id2",
+    "age": "age2",
+    "_v_o_id": "_v_o_id2"
+  })
+# join and filter
+_df = _df.join(_df2, on=["p_id","sex"], how="left")\
+  .with_columns([
+    (pl.col("age2") == pl.col("age")).alias("same_age"),
+    (pl.col("age2") < pl.col("age")).alias("younger"),
+    (pl.col("_v_o_id2") <= pl.col("_v_o_id")).alias("not_newer")
+  ])\
+  .filter(pl.col("younger") | (pl.col("same_age") & pl.col("not_newer")))\
+  .drop(["same_age","younger","not_newer","age2","_v_o_id","_v_o_id2"])
+
+# merge the data
+df = df\
+  .rename({"v_o_id":"v_o_id2"})\
+  .drop("age")\
+  .join(_df, on=["p_id","sex","v_o_id2"], how="left")\
+  .drop(["v_o_id2"])\
+  .unique()
+
 # pivot the data
+logger.info("Pivoting the DataFrame")
 df = df.pivot(
   values="value",
   index=["p_id","v_o_id","sex","age"],
@@ -174,6 +216,11 @@ df = df.pivot(
 )
 
 # Final logs ===============================================================
+logger.info("Sorting the DataFrame")
+df = df.sort([
+  "p_id",
+  pl.col("v_o_id").map_elements(lambda s: int(s.split("_")[1]),return_dtype=pl.Int32)
+])
 logger.info("Saving the DataFrame")
 os.makedirs("preprocessed_data", exist_ok=True)
 df.write_csv("preprocessed_data/eHRs-gen2.csv")
