@@ -207,6 +207,41 @@ df = df\
   .drop(["v_o_id2"])\
   .unique()
 
+# determine target data ====================================================
+logger.info("Determining target data")
+targets = pl\
+  .read_csv("00_origin_data/gen2_CIE10.csv")\
+  .select(["CIE-10","TARGET"])\
+  .filter(pl.col("TARGET").is_not_null())\
+  .unique()\
+  .to_dict()["CIE-10"]\
+  .to_list()
+
+# get target diagnoses
+_df = df\
+  .filter(pl.col("CIE10").is_in(targets))\
+  .drop(["v_o_id"])\
+  .with_columns([
+    ("pred1y_"+pl.col("CIE10")).alias("CIE10"),
+    ("pred1y_"+pl.col("data")).alias("data")
+  ])
+
+# propagate the prediction to current and past year
+_df = _df\
+  .with_columns([
+    (pl.col("age")-1).alias("age")
+  ]).vstack(_df)\
+  .unique()
+
+# retrieve the target v_o_id
+_df = df\
+  .select(["p_id","v_o_id","age"])\
+  .join(_df, on=["p_id","age"], how="inner")\
+  .unique()
+
+# merge both dataframes
+df = df.vstack(_df.select(df.columns))
+
 # pivot the data
 logger.info("Pivoting the DataFrame")
 df = df.pivot(
@@ -218,7 +253,8 @@ df = df.pivot(
 # Final logs ===============================================================
 logger.info("Sorting the DataFrame")
 df = df.sort([
-  "p_id",
+  pl.col("p_id").cast(pl.Int32),
+  pl.col("age").cast(pl.Int32),
   pl.col("v_o_id").map_elements(lambda s: int(s.split("_")[1]),return_dtype=pl.Int32)
 ])
 logger.info("Saving the DataFrame")
