@@ -1,4 +1,4 @@
-CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
+CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10,TARGET
 101,VIH,HIV,B20
 201,Cáncer de cabeza y cuello,Head and neck cancer,C14
 202,Cáncer de estómago,Stomach cancer,C16
@@ -47,7 +47,7 @@ CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
 604,Enfermedad neurológica con déficit motor no ACV,Motor disorders with no CVA,G80-G83
 701,Degeneración macular asociada a la edad,Age-related macular degeneration,H35.3
 702,Glaucoma,Glaucoma,H40-H42
-703,Retinopatía,Retinopathy,H35
+703,Retinopatía,Retinopathy,H35,T
 901,Enfermedad cerebrovascular aguda,Acute cerebrovascular disease,I60-I64
 902,Enfermedad cerebrovascular mal definida y otra,Ill-defined cerebrovascular disease and others,I67-I69
 903,Isquemia cerebral transitoria,Transient ischemic attack,G45
@@ -57,7 +57,7 @@ CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
 907,Arteriopatía intraabdominal,Intra-abdominal artery disease,I74
 908,Aneurisma arterias aorta periféricas y viscerales,Peripheral and visceral artery aneurysms,I71
 909,Fibrilación auricular,Atrial fibrillation,I48
-910,Cardiopatía isquémica,Ischemic heart disease,I20-I25
+910,Cardiopatía isquémica,Ischemic heart disease,I20-I25,T
 911,Enfermedad valvular adquirida,Acquired heart diseases,I34-I38
 912,Anomalía congénita cardíaca y circulatoria,Congenital cardiovascular anomalies,Q20-Q28
 913,Hipertensión,Hypertension,I10-I15
@@ -79,6 +79,6 @@ CODE_BPS,PATOLOGIA_BPS,BPS_PATHOLOGY,CIE-10
 1305,Artritis reumatoide y enfermedades relacionadas,Rheumatoid arthritis and related diseases,M05-M06
 1306,Enfermedad del colágeno y vasculitis,Collagen diseases and vasculitis,M30-M31
 1307,Fibromialgia,Fibromyalgia,M79.7
-1401,Insuficiencia renal crónica,Chronic kidney disease,N18
+1401,Insuficiencia renal crónica,Chronic kidney disease,N18,T
 1402,Litiasis urinaria,Urinary lithiasis,N20
-1999,Amputacion,Amputation,Z89
+1999,Amputacion,Amputation,Z89,T
