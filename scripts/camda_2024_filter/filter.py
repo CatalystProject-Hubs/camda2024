@@ -96,8 +96,11 @@ for patient in patients:
 		
 		# empty or 1 size visits are dropped
 		if len(visit)<=1:
-			record.remove(visit)
-			continue
+			if '1111' in visit or '2222' in visit:
+				continue
+			else:
+				record.remove(visit)
+				continue
 		
 		# drop visits with no age or with no dx
 		ages_in_visit = [int(v[1:]) for v in visit if bool(pattern.match(v)) == True]
@@ -135,6 +138,9 @@ for patient, record in data.items():
 	age_list = []
 
 	for visit in record:
+		if '1111' in visit or '2222' in visit:
+			continue
+		
 		# identify dm age
 		if dm in visit:
 			dm_ages = [int(v[1:]) for v in visit if bool(pattern.match(v)) == True]
