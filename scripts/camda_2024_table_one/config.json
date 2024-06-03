@@ -1,0 +1,20 @@
+{
+    "categorical":[
+        "sex",
+        "age_dm_cat",
+        "E10-E14", 
+        "I10-I15", 
+        "E78", 
+        "M15-M19", 
+        "F40-F41", 
+        "I50", 
+        "E66", 
+        "I20-I25", 
+        "J44", 
+        "F17"
+    ],
+    "numerical":[
+        "age_dm",
+        "age"
+    ]
+}
