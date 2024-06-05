@@ -7,7 +7,7 @@ import matplotlib.cm as cm
 
 from sklearn.metrics import silhouette_samples, silhouette_score
 def plot_silhouette(data, silhouette_values, best_k):
-    plt.plot(range(2, 10), silhouette_values)
+    plt.plot(range(3, 10), silhouette_values)
     plt.xlabel('Número de clusters (k)')
     plt.ylabel('Puntuación de silueta')
     plt.title('Gráfica de silueta')
@@ -20,7 +20,7 @@ def plot_silhouette(data, silhouette_values, best_k):
 
 def silhouette(data):
     data = data.to_numpy()
-    K = range(2, 10)
+    K = range(3, 10)
     silhouette_values = []
     
     for k in K:
