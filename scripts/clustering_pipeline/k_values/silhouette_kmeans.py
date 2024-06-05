@@ -34,5 +34,5 @@ def silhouette(data):
         sample_silhouette_values = silhouette_samples(data, cluster_labels)
     
     best_k = K[silhouette_values.index(max(silhouette_values))]
-    #plot_silhouette(data, silhouette_values, best_k)
+    plot_silhouette(data, silhouette_values, best_k)
     return best_k
