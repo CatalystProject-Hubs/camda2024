@@ -20,7 +20,7 @@ def plot_silhouette(data, silhouette_values, best_k):
     plt.show()
 
 
-def silhouette(data):
+def silhouette_birch (data):
     data = data.to_numpy()
     K = range(3, 10)
     silhouette_values = []
