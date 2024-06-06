@@ -1,5 +1,3 @@
-pip install kneed
-
 # Librerias
 import pandas as pd
 import numpy as np
@@ -22,14 +20,14 @@ def printElbow(K, sse, knee):
     plt.text(knee.knee, sse[knee.knee-1], f"K = {knee.knee}", ha='center', va='bottom', fontsize=12)
     plt.show()
 
-def elbow(data):
+def elbow(clustering_method, data):
     K = range(1, 20)
     sse = []
     
     for k in K:
-        kmeans = KMeans(n_clusters=k, random_state=42, n_init="auto")
-        kmeans.fit(data)
-        sse.append(kmeans.inertia_)
+        model = clustering_method(n_clusters=k, random_state=42, n_init="auto")
+        model.fit(data)
+        sse.append(model.inertia_)
 
     knee = KneeLocator(K, sse, curve='convex', direction='decreasing')
     
