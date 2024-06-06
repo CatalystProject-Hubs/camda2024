@@ -25,7 +25,7 @@ def elbow(clustering_method, data):
     sse = []
     
     for k in K:
-        model = clustering_method(n_clusters=k, random_state=42, n_init="auto")
+        model = clustering_method(n_clusters=k)
         model.fit(data)
         sse.append(model.inertia_)
 
