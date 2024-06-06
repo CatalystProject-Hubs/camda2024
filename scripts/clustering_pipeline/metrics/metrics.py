@@ -28,14 +28,14 @@ import pandas as pd
 from sklearn.mixture import GaussianMixture
 from sklearn.datasets import make_blobs
 
-def k_means(df, lista_k):
+def k_means(df, clustering_method, lista_k):
   #df = np.array(db)
   modelos = []
   for k in lista_k:
     # Enternamiento
-    km = KMeans(n_clusters=k, random_state=37)
-    km.fit(df)
-    modelos.append(km)
+    model = clustering_method(n_clusters=k)
+    model.fit(df)
+    modelos.append(model)
   return modelos
 
 def metrics(df, l_modelos):
@@ -66,14 +66,17 @@ def obtener_modelos(model_list, list_best_k):
     modelos_filtrados = [modelo for modelo in model_list if modelo.n_clusters in list_best_k]
     return modelos_filtrados
 
-def informe(db):
+def informe(db, k, clustering_method, name):
   df = np.array(db)
   k = [i for i in range(2, 41)]
-  modelos = k_means(df, k)
+  modelos = k_means(df, clustering_method,k)
   scores = metrics(df, modelos)
   df_scores = informe_metrics(scores, k)
   list_best_k = best_k(df_scores)
+
+  
+
   mejores_modelos = obtener_modelos(modelos, list_best_k)
 
-  return mejores_modelos
+  return mejores_modelos , str(clustering_method)
 
