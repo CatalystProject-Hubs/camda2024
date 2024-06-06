@@ -25,7 +25,7 @@ def silhouette(clustering_method, data):
     
     for k in K:
         # model = clustering_method(n_clusters=k, random_state=42, n_init="auto")
-        model = clustering_method(n_clusters=k, n_init="auto")
+        model = clustering_method(n_clusters=k)
         cluster_labels = model.fit_predict(data)
     
         silhouette_avg = silhouette_score(data, cluster_labels)

@@ -13,7 +13,7 @@ from sklearn.metrics import calinski_harabasz_score
 
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
-import umap
+#import umap
 
 import itertools
 import os
@@ -46,13 +46,18 @@ def metrics(df, l_modelos):
     scores['sillhouette'].append(silhouette_score(df, m.labels_))
   return scores
 
-def informe_metrics(scores, lista_k):
+def informe_metrics(scores, lista_k, clustering_method):
     df = pd.DataFrame(scores)
     df.insert(0, 'numero de k', lista_k)
     df['davie_bouldin_rank'] = df['davie_bouldin'].rank(method='min').astype(int)
     df['calinski_harabasz_rank'] = df['calinski_harabasz'].rank(ascending=False, method='min').astype(int)
     df['sillhouette_rank'] = df['sillhouette'].rank(ascending=False, method='min').astype(int)
-    df.to_csv("scores.csv", index=False)
+
+    class_str = str(clustering_method)
+    parts = class_str.split('.')
+    name = str(parts[-1][:-2].lower())
+    
+    df.to_csv(name+'.csv', index=False)
     return df
 
 def best_k(df):
@@ -66,12 +71,12 @@ def obtener_modelos(model_list, list_best_k):
     modelos_filtrados = [modelo for modelo in model_list if modelo.n_clusters in list_best_k]
     return modelos_filtrados
 
-def informe(db, k, clustering_method, name):
+def informe(db, k, clustering_method):
   df = np.array(db)
-  k = [i for i in range(2, 41)]
+  #k = [i for i in range(2, 41)]
   modelos = k_means(df, clustering_method,k)
   scores = metrics(df, modelos)
-  df_scores = informe_metrics(scores, k)
+  df_scores = informe_metrics(scores, k, clustering_method )
   list_best_k = best_k(df_scores)
 
   

@@ -2,6 +2,7 @@ import pandas as pd
 from gap_statistic import OptimalK
 from sklearn.datasets import make_classification
 import warnings
+import numpy as np
 warnings.filterwarnings('ignore')
 
 # Recibe base de datos en formato dataframe preprocesade y regresa el número óptimo de clusters calculados
