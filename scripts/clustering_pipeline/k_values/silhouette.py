@@ -20,11 +20,12 @@ def plot_silhouette(data, silhouette_values, best_k):
 
 def silhouette(clustering_method, data):
     data = data.to_numpy()
-    K = range(3, 10)
+    K = range(2, 10)
     silhouette_values = []
     
     for k in K:
-        model = clustering_method(n_clusters=k, random_state=42, n_init="auto")
+        # model = clustering_method(n_clusters=k, random_state=42, n_init="auto")
+        model = clustering_method(n_clusters=k, n_init="auto")
         cluster_labels = model.fit_predict(data)
     
         silhouette_avg = silhouette_score(data, cluster_labels)
