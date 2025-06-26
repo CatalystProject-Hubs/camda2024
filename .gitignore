@@ -1,6 +1,7 @@
 # other files to exclude
 .venv/
 .success
+00_origin_data
 
 # Created by https://www.toptal.com/developers/gitignore/api/macos,visualstudiocode,linux,windows,emacs
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,visualstudiocode,linux,windows,emacs
